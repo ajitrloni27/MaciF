@@ -13,15 +13,17 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Custom JS -->
+    <script defer src="script.js"></script>
 </head>
 <body>
     <!-- Floating Navigation Bar -->
     <header class="header">
         <nav class="nav-container">
-            <div class="logo">
+            <a href="#home" class="logo">
                 <span class="logo-box">MF</span>
                 <span class="logo-text">MaciF</span>
-            </div>
+            </a>
             
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active">Home</a></li>
@@ -123,39 +125,126 @@
             <!-- Tech tag carousel -->
             <div class="carousel-container">
                 <div class="carousel-track">
-                    <span>React</span>
-                    <span>TypeScript</span>
-                    <span>JavaScript</span>
-                    <span>Node.js</span>
-                    <span>CSS Grid</span>
-                    <span>HTML5</span>
-                    <span>Next.js</span>
-                    <span>PostgreSQL</span>
-                    <span>MongoDB</span>
-                    <span>TailwindCSS</span>
-                    <span>REST APIs</span>
-                    <span>Git & GitHub</span>
+                    <a href="#projects" class="carousel-item">React</a>
+                    <a href="#projects" class="carousel-item">TypeScript</a>
+                    <a href="#projects" class="carousel-item">JavaScript</a>
+                    <a href="#projects" class="carousel-item">Node.js</a>
+                    <a href="#projects" class="carousel-item">CSS Grid</a>
+                    <a href="#projects" class="carousel-item">HTML5</a>
+                    <a href="#projects" class="carousel-item">Next.js</a>
+                    <a href="#projects" class="carousel-item">PostgreSQL</a>
+                    <a href="#projects" class="carousel-item">MongoDB</a>
+                    <a href="#projects" class="carousel-item">TailwindCSS</a>
+                    <a href="#projects" class="carousel-item">REST APIs</a>
+                    <a href="#projects" class="carousel-item">Git & GitHub</a>
                     <!-- Repeat for smooth infinite scroll -->
-                    <span>React</span>
-                    <span>TypeScript</span>
-                    <span>JavaScript</span>
-                    <span>Node.js</span>
-                    <span>CSS Grid</span>
-                    <span>HTML5</span>
-                    <span>Next.js</span>
-                    <span>PostgreSQL</span>
-                    <span>MongoDB</span>
-                    <span>TailwindCSS</span>
-                    <span>REST APIs</span>
-                    <span>Git & GitHub</span>
+                    <a href="#projects" class="carousel-item">React</a>
+                    <a href="#projects" class="carousel-item">TypeScript</a>
+                    <a href="#projects" class="carousel-item">JavaScript</a>
+                    <a href="#projects" class="carousel-item">Node.js</a>
+                    <a href="#projects" class="carousel-item">CSS Grid</a>
+                    <a href="#projects" class="carousel-item">HTML5</a>
+                    <a href="#projects" class="carousel-item">Next.js</a>
+                    <a href="#projects" class="carousel-item">PostgreSQL</a>
+                    <a href="#projects" class="carousel-item">MongoDB</a>
+                    <a href="#projects" class="carousel-item">TailwindCSS</a>
+                    <a href="#projects" class="carousel-item">REST APIs</a>
+                    <a href="#projects" class="carousel-item">Git & GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section Placeholder -->
+        <section id="projects" style="padding: 120px 0; text-align: center; border-top: 1px solid var(--border-color);">
+            <div class="projects-container" style="width: 90%; max-width: 1200px; margin: 0 auto;">
+                <h2 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 16px;">My Projects</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Projects will be showcased here. (Content coming in the Projects section step!)</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="contact-container">
+                <!-- Left Column: Contact details -->
+                <div class="contact-info">
+                    <h2 class="contact-title">Let's build something <span class="gradient-text">extraordinary</span> together.</h2>
+                    <p class="contact-description">
+                        Feel free to reach out for collaborations, freelance opportunities, or just to say hello! I'm always open to discussing new ideas.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon bg-mail">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:ajitrloni@gmail.com">ajitrloni@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon bg-github">
+                                <i data-lucide="github"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/ajitrloni27" target="_blank" rel="noopener noreferrer">github.com/ajitrloni27</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon bg-linkedin">
+                                <i data-lucide="linkedin"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>LinkedIn</h4>
+                                <a href="https://www.linkedin.com/in/ajitrloni/" target="_blank" rel="noopener noreferrer">linkedin.com/in/ajitrloni</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Form -->
+                <div class="contact-form-card">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="form-name">Your Name</label>
+                            <input type="text" id="form-name" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="form-email">Email Address</label>
+                            <input type="email" id="form-email" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="form-message">Message</label>
+                            <textarea id="form-message" rows="5" placeholder="Let's talk about your project..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            Send Message <i data-lucide="send" class="btn-icon"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-    </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-copyright">&copy; 2026 MaciF. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://github.com/ajitrloni27" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i data-lucide="github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ajitrloni/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i data-lucide="linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
