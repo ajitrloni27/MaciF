@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Maci F - Creative Web Developer & Designer Portfolio">
+    <title>Maci F | Creative Web Developer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Navigation Bar -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="logo-box">MF</span>
+                <span class="logo-text">MaciF</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="search-box">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" placeholder="Search... Ctrl K" disabled>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i data-lucide="moon" class="theme-icon"></i>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Open menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-container">
+                <!-- Left Column: Intro & Text -->
+                <div class="hero-intro">
+                    <h1 class="hero-title">
+                        Mastering
+                        <span class="gradient-text">Web Development</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        A hands-on portfolio showcasing full-stack applications, interactive UI/UX, and performant web solutions—built from the ground up.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary">
+                            Explore Projects <i data-lucide="arrow-right" class="btn-icon"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            Contact Me <i data-lucide="mail" class="btn-icon"></i>
+                        </a>
+                    </div>
+                    <div class="hero-badges">
+                        <span class="badge-item">🚀 15+ Projects & Tools</span>
+                        <span class="badge-separator">•</span>
+                        <span class="badge-item">⚡ Learn by Building, Not Memorizing</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Staggered Tech Cards -->
+                <div class="hero-visual">
+                    <div class="tech-cards-grid">
+                        <div class="tech-card card-react">
+                            <div class="icon-wrapper bg-react">
+                                <i data-lucide="atom"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>React.js</h3>
+                                <p>Frontend Architecture</p>
+                            </div>
+                        </div>
+
+                        <div class="tech-card card-node">
+                            <div class="icon-wrapper bg-node">
+                                <i data-lucide="server"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Node.js</h3>
+                                <p>Backend & APIs</p>
+                            </div>
+                        </div>
+
+                        <div class="tech-card card-figma">
+                            <div class="icon-wrapper bg-figma">
+                                <i data-lucide="figma"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>Figma</h3>
+                                <p>UI/UX Design</p>
+                            </div>
+                        </div>
+
+                        <div class="tech-card card-cloud">
+                            <div class="icon-wrapper bg-cloud">
+                                <i data-lucide="cloud"></i>
+                            </div>
+                            <div class="card-info">
+                                <h3>DevOps</h3>
+                                <p>CI/CD & Cloud</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech tag carousel -->
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <span>React</span>
+                    <span>TypeScript</span>
+                    <span>JavaScript</span>
+                    <span>Node.js</span>
+                    <span>CSS Grid</span>
+                    <span>HTML5</span>
+                    <span>Next.js</span>
+                    <span>PostgreSQL</span>
+                    <span>MongoDB</span>
+                    <span>TailwindCSS</span>
+                    <span>REST APIs</span>
+                    <span>Git & GitHub</span>
+                    <!-- Repeat for smooth infinite scroll -->
+                    <span>React</span>
+                    <span>TypeScript</span>
+                    <span>JavaScript</span>
+                    <span>Node.js</span>
+                    <span>CSS Grid</span>
+                    <span>HTML5</span>
+                    <span>Next.js</span>
+                    <span>PostgreSQL</span>
+                    <span>MongoDB</span>
+                    <span>TailwindCSS</span>
+                    <span>REST APIs</span>
+                    <span>Git & GitHub</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
