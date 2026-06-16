@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     });
 
+    
+
     // Close mobile menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -103,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Clear form inputs
                 contactForm.reset();
+                
 
                 // Create success toast notification
                 showToast("Your message has been sent successfully!");
