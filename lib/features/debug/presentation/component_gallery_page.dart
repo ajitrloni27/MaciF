@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/clinical_alert.dart';
-import '../../../core/widgets/glass_container.dart';
 import '../../../core/widgets/section_divider.dart';
 import '../../../core/widgets/status_pill.dart';
 import '../../patient_storage/logic/patient_record_store.dart';
@@ -15,8 +14,6 @@ class ComponentGalleryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Clinical Component Gallery'),

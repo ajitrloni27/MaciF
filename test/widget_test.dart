@@ -22,7 +22,7 @@ void main() {
       routes: [
         GoRoute(
           path: '/',
-          builder: (_, __) => const NfcCapturePage(),
+          builder: (context, state) => const NfcCapturePage(),
         ),
       ],
     );

@@ -162,9 +162,7 @@ class NetworkSimulatorPage extends ConsumerWidget {
                             .read(networkSimulatorProvider.notifier)
                             .setCompareMode(value),
                         title: const Text('Compare mode'),
-                        subtitle: const TextStyle(fontSize: 11, color: Colors.grey) != null
-                            ? const Text('Simulate MedGate vs Naive (Standard) app side-by-side')
-                            : null,
+                        subtitle: const Text('Simulate MedGate vs Naive (Standard) app side-by-side'),
                         secondary: const Icon(Icons.compare_arrows_rounded),
                       ),
                       const SizedBox(height: 12),

@@ -10,13 +10,12 @@ import '../../../core/widgets/glass_container.dart';
 import '../../../core/widgets/status_pill.dart';
 import '../../network_simulator/providers/network_simulator_provider.dart';
 import '../../nfc_capture/providers/nfc_provider.dart';
-import '../../patient_storage/logic/patient_record_store.dart';
 import '../../patient_storage/providers/patient_storage_provider.dart';
 import '../../transmission_engine/logic/adaptive_transmission.dart';
-import '../../transmission_engine/logic/chunking.dart';
 import '../../transmission_engine/logic/protocol_engine.dart';
 import '../../transmission_engine/providers/transmission_provider.dart';
 import '../../triage/logic/triage_assessment.dart';
+import 'widgets/doctor_consultation_reply_view.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -30,7 +29,6 @@ class HomePage extends ConsumerWidget {
     final patient = captureState.patient;
     final storedRecord =
         patient == null ? null : storageState.recordFor(patient.id);
-    final chunks = chunkText(captureState.payload, 8);
     final clinicalPlan =
         patient == null ? null : buildClinicalTransmissionPlan(patient);
     final validationIssues =
@@ -80,6 +78,7 @@ class HomePage extends ConsumerWidget {
                       ),
                 ),
                 const SizedBox(height: 20),
+                const DoctorConsultationReplyView(),
                 GlassContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

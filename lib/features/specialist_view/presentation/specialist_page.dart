@@ -15,9 +15,9 @@ import '../../data/patient_model.dart';
 import '../../data/patient_schema.dart';
 import '../../network_simulator/providers/network_simulator_provider.dart';
 import '../../nfc_capture/providers/nfc_provider.dart';
-import '../../transmission_engine/logic/protocol_engine.dart';
 import '../../transmission_engine/providers/transmission_provider.dart';
 import '../../triage/logic/triage_assessment.dart';
+import 'widgets/doctor_reply_card.dart';
 import 'widgets/image_recovery_demo.dart';
 
 class SpecialistPage extends ConsumerStatefulWidget {
@@ -84,8 +84,6 @@ class _SpecialistPageState extends ConsumerState<SpecialistPage> {
       reliability: networkState.reliability,
       latencyMs: networkState.latencyMs,
     );
-
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       body: AnimatedPageWrapper(
@@ -312,6 +310,13 @@ class _SpecialistPageState extends ConsumerState<SpecialistPage> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 16),
+                DoctorReplyCard(
+                  caseId: (rebuiltPatient != null && rebuiltPatient.id.isNotEmpty)
+                      ? rebuiltPatient.id
+                      : 'CASE-101',
+                  patientName: rebuiltPatient?.displayName ?? 'Patient',
                 ),
               ],
             ),

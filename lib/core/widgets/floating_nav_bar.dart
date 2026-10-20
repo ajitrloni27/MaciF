@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../theme/glass_style.dart';
-
 /// A premium translucent bottom navigation bar with frosted glass blur,
 /// animated selection pill, and smooth icon transitions.
 class FloatingNavBar extends StatelessWidget {

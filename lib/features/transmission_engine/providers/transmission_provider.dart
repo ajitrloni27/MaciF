@@ -5,9 +5,12 @@ import '../../../core/theme/clinical_colors.dart';
 import '../../data/patient_model.dart';
 import '../../network_simulator/providers/network_simulator_provider.dart';
 import '../../patient_storage/providers/patient_storage_provider.dart';
+import '../../patient_storage/providers/reply_storage_provider.dart';
+import '../../specialist_view/models/consultation_reply.dart';
 import '../logic/image_recovery.dart';
 import '../logic/protocol_engine.dart';
 import '../logic/recovery_strategy.dart';
+import '../logic/reply_transmission.dart';
 import '../logic/secure_transmission.dart';
 
 class TransmissionActivity {
@@ -189,6 +192,9 @@ class TransmissionState {
     this.parityPackets = 2,
     this.networkProfile = 'Medium',
     this.imageRecoveryResult,
+    this.latestReply,
+    this.latestReceivedReply,
+    this.confirmedReplies = const <ConsultationReply>[],
   });
 
   final String status;
@@ -242,6 +248,9 @@ class TransmissionState {
   final int parityPackets;
   final String networkProfile;
   final ImageRecoveryResult? imageRecoveryResult;
+  final ConsultationReply? latestReply;
+  final ConsultationReply? latestReceivedReply;
+  final List<ConsultationReply> confirmedReplies;
 
   TransmissionState copyWith({
     String? status,
@@ -295,6 +304,9 @@ class TransmissionState {
     int? parityPackets,
     String? networkProfile,
     ImageRecoveryResult? imageRecoveryResult,
+    ConsultationReply? latestReply,
+    ConsultationReply? latestReceivedReply,
+    List<ConsultationReply>? confirmedReplies,
   }) {
     return TransmissionState(
       status: status ?? this.status,
@@ -352,6 +364,9 @@ class TransmissionState {
       parityPackets: parityPackets ?? this.parityPackets,
       networkProfile: networkProfile ?? this.networkProfile,
       imageRecoveryResult: imageRecoveryResult ?? this.imageRecoveryResult,
+      latestReply: latestReply ?? this.latestReply,
+      latestReceivedReply: latestReceivedReply ?? this.latestReceivedReply,
+      confirmedReplies: confirmedReplies ?? this.confirmedReplies,
     );
   }
 }
@@ -391,6 +406,86 @@ class TransmissionController extends Notifier<TransmissionState> {
               ],
       );
     }
+  }
+
+  Future<ReplyTransmissionResult> sendConsultationReply({
+    required ConsultationReply reply,
+    int? randomSeed,
+  }) async {
+    final replyStore = ref.read(consultationReplyStoreProvider);
+    final network = ref.read(networkSimulatorProvider);
+
+    await replyStore.stageReply(reply);
+
+    final queueEntry = TransmissionQueueItem(
+      id: reply.replyId,
+      status: 'sending',
+      summary: 'Doctor reply to Case ${reply.caseId} [Dr. ${reply.doctorName}]',
+      packetCount: 4,
+      retryCount: 0,
+      createdAt: DateTime.now(),
+      payload: reply.toPayload(),
+      isUrgent: reply.followUp,
+    );
+
+    state = state.copyWith(
+      latestReply: reply,
+      queueItems: _upsertQueueItem(state.queueItems, queueEntry),
+      logs: [
+        'Doctor reply queued with priority ${reply.followUp ? "URGENT" : "ROUTINE"}...',
+        ...state.logs,
+      ],
+    );
+
+    final result = simulateReplyTransmission(
+      reply: reply,
+      reliability: network.reliability,
+      sparePieces: network.redundancy,
+      chunkSize: network.chunkSize,
+      randomSeed: randomSeed,
+    );
+
+    if (result.rebuilt && result.rebuiltReply != null) {
+      await replyStore.confirmReply(result.rebuiltReply!);
+      final updatedQueue = _upsertQueueItem(
+        state.queueItems,
+        queueEntry.copyWith(status: 'delivered'),
+      );
+      state = state.copyWith(
+        latestReceivedReply: result.rebuiltReply,
+        confirmedReplies: [...state.confirmedReplies, result.rebuiltReply!],
+        queueItems: updatedQueue,
+        logs: [
+          ...result.stageLog,
+          'Doctor consultation reply confirmed in baseline.',
+          ...state.logs,
+        ],
+      );
+      ref.read(alertProvider.notifier).push(
+            id: reply.replyId,
+            title: 'Reply received',
+            body: 'Dr. ${reply.doctorName}: ${reply.advice}',
+            severity: ClinicalSeverity.success,
+          );
+    } else {
+      final updatedQueue = _upsertQueueItem(
+        state.queueItems,
+        queueEntry.copyWith(status: 'retrying', retryCount: 1),
+      );
+      state = state.copyWith(
+        queueItems: updatedQueue,
+        logs: [
+          ...result.stageLog,
+          'Doctor reply transmission degraded; queued for retry.',
+          ...state.logs,
+        ],
+      );
+    }
+    return result;
+  }
+
+  void clearReceivedReply() {
+    state = state.copyWith(latestReceivedReply: null);
   }
 
   Future<void> sendPatientRecord({
