@@ -404,16 +404,32 @@ class _NfcCapturePageState extends ConsumerState<NfcCapturePage> {
                                     .read(nfcProvider.notifier)
                                     .updateVitals(photoRef: ''),
                         ),
-                        SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          title: const Text('Mark as urgent'),
-                          subtitle: const Text(
-                            'Expedites fallback and preserves a tiny thumbnail in fallback mode.',
-                          ),
-                          value: patient.urgent,
-                          onChanged: (value) => ref
-                              .read(nfcProvider.notifier)
-                              .updateVitals(urgent: value),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Mark as urgent',
+                                    style: Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'Expedites fallback and preserves a tiny thumbnail in fallback mode.',
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Switch.adaptive(
+                              value: patient.urgent,
+                              onChanged: (value) => ref
+                                  .read(nfcProvider.notifier)
+                                  .updateVitals(urgent: value),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         FilledButton(
@@ -683,38 +699,56 @@ class _GenderRadioGroup extends StatelessWidget {
             key: const Key('gender-radio-group'),
             children: [
               Expanded(
-                child: Material(
-                  color: Colors.transparent,
-                  child: RadioListTile<String>(
-                    key: const Key('gender-male-radio'),
-                    contentPadding: EdgeInsets.zero,
-                    value: '0',
-                    groupValue: selected,
-                    onChanged: (value) {
-                      if (value != null) {
-                        onChanged(value);
-                      }
-                    },
-                    title: const Text('Male'),
-                    secondary: const Icon(Icons.male_rounded),
+                child: InkWell(
+                  key: const Key('gender-male-radio'),
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () => onChanged('0'),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio<String>(
+                          value: '0',
+                          groupValue: selected,
+                          onChanged: (value) {
+                            if (value != null) {
+                              onChanged(value);
+                            }
+                          },
+                        ),
+                        const Icon(Icons.male_rounded),
+                        const SizedBox(width: 4),
+                        const Text('Male'),
+                      ],
+                    ),
                   ),
                 ),
               ),
               Expanded(
-                child: Material(
-                  color: Colors.transparent,
-                  child: RadioListTile<String>(
-                    key: const Key('gender-female-radio'),
-                    contentPadding: EdgeInsets.zero,
-                    value: '1',
-                    groupValue: selected,
-                    onChanged: (value) {
-                      if (value != null) {
-                        onChanged(value);
-                      }
-                    },
-                    title: const Text('Female'),
-                    secondary: const Icon(Icons.female_rounded),
+                child: InkWell(
+                  key: const Key('gender-female-radio'),
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () => onChanged('1'),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio<String>(
+                          value: '1',
+                          groupValue: selected,
+                          onChanged: (value) {
+                            if (value != null) {
+                              onChanged(value);
+                            }
+                          },
+                        ),
+                        const Icon(Icons.female_rounded),
+                        const SizedBox(width: 4),
+                        const Text('Female'),
+                      ],
+                    ),
                   ),
                 ),
               ),
