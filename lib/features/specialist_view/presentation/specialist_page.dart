@@ -185,17 +185,51 @@ class _SpecialistPageState extends ConsumerState<SpecialistPage> {
                       ),
                       const SectionDivider(),
                       Text(
-                        'Triage assessment',
+                        'Specialist Routing & Triage',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
                       const SizedBox(height: 8),
-                      Text('Triage severity: ${assessment.severity.toUpperCase()}'),
-                      const SizedBox(height: 4),
-                      Text('Triage score: ${assessment.score}/100'),
-                      const SizedBox(height: 4),
-                      Text('Recommendation: ${assessment.recommendation}'),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          StatusPill(
+                            label: assessment.urgency.displayName,
+                            icon: assessment.isUrgent ? Icons.emergency_rounded : Icons.info_outline_rounded,
+                            severity: assessment.isUrgent
+                                ? ClinicalSeverity.critical
+                                : (assessment.urgency == TriageUrgency.priority ? ClinicalSeverity.caution : ClinicalSeverity.success),
+                          ),
+                          StatusPill(
+                            label: assessment.specialty.displayName,
+                            icon: Icons.local_hospital_rounded,
+                            severity: assessment.specialty == TriageSpecialty.emergency ? ClinicalSeverity.critical : ClinicalSeverity.info,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        rebuiltPatient?.emergencyNotes.isNotEmpty == true
+                            ? rebuiltPatient!.emergencyNotes
+                            : assessment.reason,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      if (rebuiltPatient?.symptoms.isNotEmpty == true) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          'Reported symptoms: ${rebuiltPatient!.symptoms}',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                      const SizedBox(height: 8),
+                      const ClinicalAlert(
+                        severity: ClinicalSeverity.info,
+                        title: 'Triage Advisory',
+                        body: 'Decision-support aid, not a diagnosis.',
+                        dismissible: false,
+                      ),
                       const SectionDivider(),
                       Text(
                         'Progressive sections',

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../core/routing/app_router.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/animated_page_wrapper.dart';
 import '../../../core/widgets/clinical_alert.dart';
@@ -432,15 +434,12 @@ class _NfcCapturePageState extends ConsumerState<NfcCapturePage> {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        FilledButton(
+                        FilledButton.icon(
+                          icon: const Icon(Icons.assignment_turned_in_rounded),
                           onPressed: canSend
-                              ? () => ref
-                                    .read(transmissionProvider.notifier)
-                                    .sendPatientRecord(patient: patient)
+                              ? () => context.push(AppRoutes.triage)
                               : null,
-                          child: Text(
-                            sending ? 'Sending...' : 'Send protected update',
-                          ),
+                          label: const Text('Proceed to Triage & Transmit'),
                         ),
                       ],
                     ),

@@ -141,6 +141,7 @@ void main() {
         ),
       );
       await routineFuture;
+      await Future<void>.delayed(const Duration(milliseconds: 100));
 
       final state = container.read(transmissionProvider);
       expect(state.queueItems.first.isUrgent, isTrue);

@@ -10,6 +10,7 @@ import '../../features/nfc_capture/presentation/nfc_capture_page.dart';
 import '../../features/onboarding/presentation/onboarding_page.dart';
 import '../../features/settings/presentation/settings_page.dart';
 import '../../features/specialist_view/presentation/specialist_page.dart';
+import '../../features/triage/presentation/triage_page.dart';
 
 class AppRoutes {
   static const onboarding = '/onboarding';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const nfcCapture = '/nfc-capture';
   static const networkSimulator = '/network-simulator';
   static const specialist = '/specialist';
+  static const triage = '/triage';
   static const settings = '/settings';
   static const componentGallery = '/component-gallery';
 }
@@ -59,6 +61,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.specialist,
         pageBuilder: (context, state) => _fadeTransitionPage(state, const SpecialistPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.triage,
+        pageBuilder: (context, state) => _fadeTransitionPage(state, const TriagePage()),
       ),
       GoRoute(
         path: AppRoutes.settings,
