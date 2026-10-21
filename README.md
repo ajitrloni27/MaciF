@@ -4,21 +4,9 @@
 
 ---
 
-## 📌 Table of Contents
-1. [Why We Built This](#-why-we-built-this)
-2. [How It Works (Step-by-Step Flow)](#-how-it-works-step-by-step-flow)
-3. [Key Features](#-key-features)
-4. [How Data Travels (The 5-Step Pipeline)](#-how-data-travels-the-5-step-pipeline)
-5. [Smart Design Choices](#-smart-design-choices)
-6. [Project Structure](#-project-structure)
-7. [How to Run the App](#-how-to-run-the-app)
-8. [Running Tests](#-running-tests)
-
----
-
 ## 💡 Why We Built This
 
-In remote villages and disaster areas:
+In remote villages, primary health centers, and disaster relief zones:
 * Internet connections are weak, drop packets, or shut off completely.
 * Standard apps send huge JSON data files that fail to load or get stuck.
 * When sending fails halfway, data can get mixed up or lost.
@@ -33,7 +21,7 @@ In remote villages and disaster areas:
 
 ## 🔄 How It Works (Step-by-Step Flow)
 
-Here is the complete journey of a patient visit:
+Here is the complete journey of a patient visit from the village clinic to the hospital specialist:
 
 ```mermaid
 flowchart TD
@@ -89,19 +77,46 @@ flowchart TD
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features in Detail
 
-| Feature | What It Does |
-|---|---|
-| **NFC Card Scan** | Tap the card on the phone to load or update patient records in one second. |
-| **Manual Fallback** | Clean screen to type in details if NFC is turned off or not available. |
-| **Symptom Triage** | Checks for red-flag symptoms and routes the patient to the right specialist. |
-| **Delta Sync** | Sends only modified numbers, saving precious bandwidth. |
-| **Self-Healing Packets** | Uses RAID-style parity math to recover dropped packets without re-transmitting. |
-| **Honest Confidence** | Clearly shows if data is 100% recovered, partial, or failed. Never fakes recovery. |
-| **Store & Forward** | If connection is lost completely, items wait safely in queue and retry when back online. |
-| **Two-Way Chat/Orders** | Doctors can send prescriptions and instructions directly back to the field worker. |
-| **Built-in Bad Internet Tester** | Lets you test the app under 10% to 80% packet loss and high latency. |
+### 1. Contactless NFC Patient Card Scan
+Health workers do not need to type lengthy patient details every time. They simply tap the patient's smart card against an Android phone. The app instantly reads demographics (Name, Age, Gender, Blood Group), vital signs (Blood Pressure, Heart Rate, Oxygen level, Temperature), and any known allergies. Health workers can also write updated diagnosis notes and prescriptions directly back onto the card so the patient can carry their updated records anywhere.
+
+### 2. Simple Manual Entry Fallback
+If the patient does not have an NFC card, or if NFC hardware is turned off, the app provides a clean, easy-to-use form. The screen lets workers quickly enter patient details with helpful input checks that warn if a vital sign looks unusually high or low (such as an impossible blood pressure or fever).
+
+### 3. Rule-Based Symptom Triage & Emergency Flags
+Frontline clinics need to spot dangerous emergencies immediately. The app walks workers through a quick symptom questionnaire covering five key health areas:
+* **Heart & Chest**: Checks for crushing chest pain, pain spreading to the arm, or heavy sweating.
+* **Brain & Nerves**: Checks for sudden weakness, face drooping, or trouble speaking.
+* **Lungs & Breathing**: Checks for shortness of breath or blue lips.
+* **Bleeding & Injuries**: Checks for deep cuts, broken bones, or head trauma.
+* **General Infection**: Checks for very high fever or severe dehydration.
+
+If danger signs appear, the app immediately flags the visit as **Urgent** and automatically picks the matching hospital specialty (such as Cardiology, Neurology, or Pulmonology).
+
+### 4. Smart Delta Sync (Send Only What Changed)
+Traditional apps re-send the patient's entire medical record on every visit, wasting valuable data. MedGate compares the new visit with the patient's last confirmed record in the database and sends *only the specific fields that changed*. If only the patient's blood pressure was adjusted, only the new blood pressure numbers travel over the wire, cutting data size by up to 85%.
+
+### 5. Self-Healing Packets (Forward Error Correction)
+When internet signals cut out or drop packets, standard apps freeze and fail. MedGate groups data packets and generates backup recovery math pieces (called parity). Even if 20% to 40% of the packets vanish in transit, the doctor's receiver can mathematically rebuild the missing pieces without needing to re-download or re-send anything.
+
+### 6. Honest Math & Safe Confidence Scoring
+Medical care cannot rely on guessing. MedGate measures exact recovery mathematically:
+* If all pieces or enough backup parity pieces arrive, the record is verified and marked 100% recovered.
+* If damage is too severe and exceeds the backup capacity, MedGate honestly tells the doctor: *"Recovery Incomplete — Please Reconnect"*. It never fabricates or guesses missing vital numbers.
+
+### 7. Store-and-Forward Queue with Urgent Priority
+If the internet dies completely, the app does not lose your work. Patient visits are safely stored in an offline queue:
+* When internet returns, items send automatically in the background.
+* High-risk and emergency visits automatically jump to the front of the line ahead of routine checkups.
+* Vital signs are always sent first before large photos or media.
+
+### 8. Two-Way Doctor Consultation & Orders
+Telemedicine should not be a one-way street. Once the specialist reviews the patient's vitals, triage flags, and photos, they can write their diagnosis, medication orders, and immediate next steps. This reply travels back through the same compressed, secure pipeline, popping up as an instant alert banner on the frontline worker's phone.
+
+### 9. Built-in Bad Internet Simulator
+To prove the system works under real-world conditions, the app includes a live test lab. You can slide sliders to simulate 10% to 80% packet loss, high latency (up to 4 seconds), and weak bandwidth presets (like 2G/EDGE or satellite). You can watch real packets drop, survive, and get mathematically rebuilt on screen in real time.
 
 ---
 
