@@ -1,5 +1,5 @@
 # AGENTS
-
+          
 - Keep business logic in providers and logic files; avoid putting feature behavior directly in widgets.
 - Keep files compact and split by responsibility so they stay under roughly 150 lines when practical.
 - Follow the shared glass UI conventions from core/theme/glass_style.dart and core/theme/app_theme.dart.
