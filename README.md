@@ -1,7 +1,7 @@
 # Namma MedGate
 
 **Namma MedGate** is a mobile app made for doctors and rural healthcare workers. It lets health workers scan a patient's card with their phone and send medical details to hospital doctors—even when the internet is extremely slow, patchy, or cutting out (like rural 2G or satellite).
-
+ 
 
 > 💡 **Preparing for a presentation, viva, or interview?** Read [FLOW.md](FLOW.md) for the complete project study guide, problem statement, tool-by-tool breakdown, architecture map, and live demo script.
 
